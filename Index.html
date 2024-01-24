@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YouTube Video Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #searchQuery {
+            width: 50%;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #results {
+            margin-top: 20px;
+        }
+
+        #results div {
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #results h3 {
+            margin: 0;
+        }
+
+        #results img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        #results a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        #results a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search YouTube Videos</h1>
+    <input type="text" id="searchQuery" placeholder="Enter search term...">
+    <button onclick="searchVideos()">Search</button>
+    <div id="results"></div>
+
+    <script>
+        async function searchVideos() {
+            var searchQuery = document.getElementById('searchQuery').value;
+            var response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(searchQuery)}&key=YOUR_API_KEY`);
+            var data = await response.json();
+            displayResults(data.items);
+        }
+
+        function displayResults(videos) {
+            var resultsElement = document.getElementById('results');
+            resultsElement.innerHTML = ''; // Clear previous results
+            videos.forEach(video => {
+                var videoElement = document.createElement('div');
+                videoElement.innerHTML = `
+                    <h3>${video.snippet.title}</h3>
+                    <img src="${video.snippet.thumbnails.medium.url}" alt="Thumbnail">
+                    <a href="https://www.youtube.com/watch?v=${video.id.videoId}" target="_blank">Watch Video</a>
+                `;
+                resultsElement.appendChild(videoElement);
+            });
+        }
+    </script>
+</body>
+</html>
