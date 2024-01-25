@@ -1,0 +1,24 @@
+.page_main__iTGjV {
+  display: flex;
+  flex: 1 1;
+  overflow-y: auto;
+  position: relative;
+}
+.styles_ripple__TR4TH {
+  display: block;
+  width: 60px;
+  height: 60px;
+  border: 1px solid #ff8f3e;
+  animation: styles_pulse__1B1Jb 5s infinite;
+}
+@keyframes styles_pulse__1B1Jb {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4);
+  }
+  70% {
+    -webkit-box-shadow: 0 0 0 2px #ff8f3e;
+  }
+  to {
+    -webkit-box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+  }
+}
